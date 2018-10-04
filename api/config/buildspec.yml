@@ -6,7 +6,7 @@ phases:
       - echo Installing API dependencies
       - cd api
       - npm install --silent
-      - echo Finished installing authentication API dependencies
+      - echo Finished installing API dependencies
   pre_build:
     commands:
       - echo Testing API
