@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing API dependencies
+      - cd api
+      - npm install --silent
+      - echo Finished installing authentication API dependencies
+  pre_build:
+    commands:
+      - echo Testing API
+      - npm run test
+      - echo Finished testing API
+  build:
+    commands:
+      - echo Deploying API
+      - npx serverless deploy --stage $STAGE
+      - echo Finished deploying API
+
+cache:
+  paths:
+    - 'api/node_modules/**/*'

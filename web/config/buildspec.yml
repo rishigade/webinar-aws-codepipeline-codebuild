@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Web dependencies
+      - cd web
+      - npm install --silent
+      - echo Finished installing Web dependencies
+  build:
+    commands:
+      - echo Building artifacts
+      - ./node_modules/@angular/cli/bin/ng build --prod --build-optimizer
+      - echo Finished building production artifacts
+
+cache:
+  paths:
+    - 'web/node_modules/**/*'
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'web/dist*'

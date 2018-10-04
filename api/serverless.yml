@@ -1,0 +1,20 @@
+service: helloworld-api
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  logRetentionInDays: 5
+  timeout: 29
+  versionFunctions: false
+
+functions:
+  sayHello:
+    handler: handler.sayHello
+    events:
+      - http:
+          path: hello
+          method: get
+          cors: true
+
+plugins:
+- serverless-offline

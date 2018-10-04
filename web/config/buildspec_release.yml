@@ -1,0 +1,36 @@
+version: 0.2
+
+env:
+  parameter-store:
+    s3 : "/s3/helloworld"
+    cloudfront : "/cloudfront/helloworld/id"
+
+phases:
+  install:
+    commands:
+      - echo Installing Web dependencies
+      - cd web
+      - npm install --silent
+      - echo Finished installing Web dependencies
+  build:
+    commands:
+      - echo Building artifacts
+      - ./node_modules/@angular/cli/bin/ng build --prod --build-optimizer
+      - echo Finished building production artifacts
+  post_build:
+    commands:
+      - echo Deploying Web application
+      - aws s3 sync dist/ s3://$s3 --delete
+      - echo Finished deploying Web application
+      - echo Running invalidation
+      - aws cloudfront create-invalidation --distribution-id $cloudfront --paths '/*'
+      - echo Finished running invalidation
+
+cache:
+  paths:
+    - 'web/node_modules/**/*'
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'web/dist*'
