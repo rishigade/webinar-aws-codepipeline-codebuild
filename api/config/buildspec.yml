@@ -17,7 +17,8 @@ phases:
       - echo Packaging API
       - npx serverless package --stage $STAGE
       - echo Finished deploying API
-  
-cache:
-  paths:
-    - 'api/node_modules/**/*'
+
+artifacts:
+  files:
+    - target/my-app-1.0-SNAPSHOT.jar
+    - appspec.yml
