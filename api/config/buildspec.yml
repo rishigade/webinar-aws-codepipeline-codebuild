@@ -17,14 +17,7 @@ phases:
       - echo Packaging API
       - npx serverless package --stage $STAGE
       - echo Finished deploying API
-  post_build:
-    commands:
-      - serverless -v deploy
-
-  artifacts:
-    files:
-      - build*/**
-
+  
 cache:
   paths:
     - 'api/node_modules/**/*'
